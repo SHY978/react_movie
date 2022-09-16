@@ -6,7 +6,7 @@ function Ticketing(){
     const location = useLocation();
     const date = new Date();
     
-
+    console.log(date.getTime());
     for(let i=65;i<=70;i++){
 
        arr.push(<b>{String.fromCharCode(i)}</b>) 

@@ -2,7 +2,7 @@ import axios from "axios";
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AlignmentExample from "./Navbar.js";
+import AlignmentExample from "./component/Navbar.js";
 import {Routes, Route, useNavigate } from 'react-router-dom';
 import {Carousel} from 'react-bootstrap';
 import Ticketing from "./routes/movies/Ticketing.js";
