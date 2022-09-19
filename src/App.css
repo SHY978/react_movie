@@ -17,7 +17,9 @@
 .bt{
 
 }
-
+.joinForm{
+  margin-top: 7%;
+}
 .joinForm>p{
   margin: 0.5%;
 }
