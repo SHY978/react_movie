@@ -123,7 +123,7 @@ function App() {
         </>
         }/>
         <Route path="/movie/:id/Ticketing" element={<Ticketing/>} />                
-        <Route path="/members" element={<Login/>} />
+        <Route path="/members/2" element={<Login/>} />
         <Route path="/members/1" element={<Join/>} />       
         <Route path="*" element={<div>잘못된 경로 입니다.</div>} />
       </Routes>

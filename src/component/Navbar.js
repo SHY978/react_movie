@@ -13,7 +13,7 @@ function AlignmentExample() {
             
           </Nav>
           <Nav>
-                <Nav.Link onClick={()=>{navigate('/members')}} >로그인</Nav.Link>            
+                <Nav.Link onClick={()=>{navigate('/members/2')}} >로그인</Nav.Link>            
                 <Nav.Link onClick={()=>{navigate('/members/1')}} >회원가입</Nav.Link>
           </Nav>
         </Container>
