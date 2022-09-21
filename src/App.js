@@ -8,6 +8,7 @@ import {Carousel} from 'react-bootstrap';
 import Ticketing from "./routes/movies/Ticketing.js";
 import Login from './routes/members/Login.js';
 import Join from './routes/members/Join.js';
+import Logout from './routes/members/Logout.js'
 
 function App() {
   let dailyBoxOfficeList = [];
@@ -19,6 +20,7 @@ function App() {
   let day = date.getDate() - 1; 
   let naverMApi =[];
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     async function movie() {
@@ -84,7 +86,7 @@ function App() {
           <Carousel fade>          
               {useDailyBoxOfficeList.map((x, i) => {
                 return (
-                  <Carousel.Item>
+                  <Carousel.Item key={i}>
                     <a href={naverMovieApi[i].link} target="_blank" rel="noopener noreferrer">
                       <img
                         className="d-block w-100"
@@ -106,7 +108,7 @@ function App() {
           <div className="row row-cols-3">
             {useDailyBoxOfficeList.map((x, i) => {
               return (
-                <div className="col">
+                <div className="col" key={i}>
                   <h1>{i + 1}</h1>
                   
                   <img src={naverMovieApi[i].image} onClick={()=>{navigate(`/movie/${useDailyBoxOfficeList[i].movieCd}/Ticketing`, {state:{image:naverMovieApi[i].image, movieNm:useDailyBoxOfficeList[i].movieNm}})}} alt=""/>
@@ -124,7 +126,8 @@ function App() {
         }/>
         <Route path="/movie/:id/Ticketing" element={<Ticketing/>} />                
         <Route path="/members/2" element={<Login/>} />
-        <Route path="/members/1" element={<Join/>} />       
+        <Route path="/members/1" element={<Join/>} />    
+        <Route path="/members/4" element={<Logout/>} />   
         <Route path="*" element={<div>잘못된 경로 입니다.</div>} />
       </Routes>
     
