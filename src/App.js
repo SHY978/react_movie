@@ -9,6 +9,11 @@ import Ticketing from "./routes/movies/Ticketing.js";
 import Login from './routes/members/Login.js';
 import Join from './routes/members/Join.js';
 import Logout from './routes/members/Logout.js'
+import Mypage from './routes/members/Mypage.js'
+import AlterMember from './routes/members/AlterMember.js';
+import List from './routes/board/List.js';
+import Write from './routes/board/Write.js';
+
 
 function App() {
   let dailyBoxOfficeList = [];
@@ -22,7 +27,7 @@ function App() {
   const navigate = useNavigate();
   
 
-  useEffect(() => {
+  useEffect(() => {    
     async function movie() {
       await axios
         .get(
@@ -77,7 +82,6 @@ function App() {
   return (
     <div className="App">
       <AlignmentExample></AlignmentExample>
-     
       <Routes>
         <Route path='/' element={
           <>
@@ -104,7 +108,7 @@ function App() {
           </Carousel>
           </div>
         </div>
-        <div className="container">
+        <div className="container" id="mainContainer">
           <div className="row row-cols-3">
             {useDailyBoxOfficeList.map((x, i) => {
               return (
@@ -124,11 +128,15 @@ function App() {
         </div>
         </>
         }/>
-        <Route path="/movie/:id/Ticketing" element={<Ticketing/>} />                
-        <Route path="/members/2" element={<Login/>} />
-        <Route path="/members/1" element={<Join/>} />    
+        <Route path="/movie/:id/Ticketing" element={<Ticketing/>} />         
+        <Route path="/members/1" element={<Join/>} /> 
+        <Route path="/members/2" element={<Login/>} />   
+        <Route path="/members/3" element={<AlterMember/>}/>
         <Route path="/members/4" element={<Logout/>} />   
-        <Route path="*" element={<div>잘못된 경로 입니다.</div>} />
+        <Route path="/members/mypage" element={<Mypage/>}/>
+        <Route path="/board/" element={<List/>}/>
+        <Route path="/board/1" element={<Write/>}/>
+        <Route path="*" element={<div>잘못된 경로 입니다.</div>} />        
       </Routes>
     
     </div>

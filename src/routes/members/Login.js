@@ -20,12 +20,16 @@ function Login(){
                id : props.id,
                passwd : props.passwd,           
             },
-        }).then((data)=>{if(data.data.message){alert(data.data.message)}else{
-            dispatch(changeUid(data.data.uid))            
-            navigate('/')}})
-    }
+        }).then((data)=>{
+            if(data.data.message){
+                console.log(data)
+                alert(data.data.message)
+            }else{
+                dispatch(changeUid(data.data.uid))            
+                navigate('/')}})
+            }
     return(      
-        <div className="login_form">
+        <div className="loginForm">
             <p>아이디</p>
             <input type="text" placeholder="아이디를 입력 해 주세요" onChange={(e)=>{setId(e.target.value)}}/><br/>
             <p>비밀번호</p>
