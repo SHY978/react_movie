@@ -13,7 +13,8 @@ import Mypage from './routes/members/Mypage.js'
 import AlterMember from './routes/members/AlterMember.js';
 import List from './routes/board/List.js';
 import Write from './routes/board/Write.js';
-
+import View from './routes/board/View.js';
+import AlterView from './routes/board/AlterView.js';
 
 function App() {
   let dailyBoxOfficeList = [];
@@ -136,6 +137,8 @@ function App() {
         <Route path="/members/mypage" element={<Mypage/>}/>
         <Route path="/board/" element={<List/>}/>
         <Route path="/board/1" element={<Write/>}/>
+        <Route path="/board/view/:id" element={<View/>} />
+        <Route path="/board/3" element={<AlterView/>}/>
         <Route path="*" element={<div>잘못된 경로 입니다.</div>} />        
       </Routes>
     

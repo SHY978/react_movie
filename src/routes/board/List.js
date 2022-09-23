@@ -38,9 +38,9 @@ function List() {
       {
             arr.map((a,i)=>{
                 return(
-                    <tr key={[i]}>
+                  <tr key={[i]}>
                     <td key={[i+1]}>{arr[i]._id}</td>
-                    <td key={[i+2]}>{arr[i].title}</td>
+                    <td key={[i+2]} onClick={()=>{navigate(`/board/view/${arr[i]._id}`,{state:{id:arr[i]._id}})}}>{arr[i].title}</td>
                     <td key={[i+3]}>{arr[i].uid}</td>
                     <td key={[i+4]}>{arr[i].date}</td>
                     <td key={[i+5]}>{arr[i].view}</td>
