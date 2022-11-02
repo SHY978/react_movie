@@ -1,22 +1,26 @@
+/* eslint-disable */
 import axios from "axios";
 import "./App.css";
+import {Carousel} from 'react-bootstrap';
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AlignmentExample from "./component/Navbar.js";
 import {Routes, Route, useNavigate } from 'react-router-dom';
-import {Carousel} from 'react-bootstrap';
-import Ticketing from "./routes/movies/Ticketing.js";
-import Login from './routes/members/Login.js';
-import Join from './routes/members/Join.js';
-import Logout from './routes/members/Logout.js'
-import Mypage from './routes/members/Mypage.js'
-import AlterMember from './routes/members/AlterMember.js';
-import List from './routes/board/List.js';
-import Write from './routes/board/Write.js';
-import View from './routes/board/View.js';
-import AlterView from './routes/board/AlterView.js';
+import Ticketing from "./pages/movies/Ticketing.js";
+import Login from './pages/members/Login.js';
+import Join from './pages/members/Join.js';
+import Logout from './pages/members/Logout.js'
+import Mypage from './pages/members/Mypage.js'
+import AlterMember from './pages/members/AlterMember.js';
+import List from './pages/board/List.js';
+import Write from './pages/board/Write.js';
+import View from './pages/board/View.js';
+import AlterView from './pages/board/AlterView.js';
+import Main from './pages/movies/Main.js'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUid } from './store.js'
 
-function App() {
+function App() {  
   let dailyBoxOfficeList = [];
   let [useDailyBoxOfficeList,setDailyBoxOfficeList] = useState([]);
   let [naverMovieApi,setNMA]= useState([]);
@@ -25,18 +29,18 @@ function App() {
   let month = date.getMonth() + 1;
   let day = date.getDate() - 1; 
   let naverMApi =[];
-  const navigate = useNavigate();
-  
-
+  const navigate = useNavigate();  
+  let selector = useSelector((state)=>{return state.user});
+  let dispatch = useDispatch();
+ 
   useEffect(() => {    
     async function movie() {
       await axios
         .get(
-          "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=" +
-            String(year) +
-            "0" +
-            String(month) +
-            String(day)
+          "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=" + '20221019'
+            // String(year) +
+            // String(month) +
+            // String(day)
         )
         .then((data) => {
           console.log(data);
@@ -54,17 +58,18 @@ function App() {
         });
       for (let i = 0; i < dailyBoxOfficeList.length; i++) {
         await axios
-          .get("/v1/search/movie.json", {
+          .get("/v1/search/movie.json", {       //재개봉작 같은 경우 순서가 밀려있어서 포스터 잘못 나옴 고친다면 api 하나 더 사용하여 감독 비교를 하면 될 듯 검색 시간이 더 증가 하겠지만..
             params: {
               query: dailyBoxOfficeList[i].movieNm,
-              display: 10,
+              display: 1,
             },
             headers: {
               "X-Naver-Client-Id": "gQ449ngBZdUeGiIekrD3",
               "X-Naver-Client-Secret": "ZTbrpHlZPo",
             },
           })
-          .then((result) => {            
+          .then((result) => {     
+            console.log(result.data)       
             console.log(dailyBoxOfficeList[i].movieNm);
             console.log(result.data.items[0].image);
             console.log(result.data.items[0].userRating	);     
@@ -79,13 +84,24 @@ function App() {
       setNMA(naverMApi);
     }
     movie();    
+
+    axios({      
+      method:'post', 
+      url: 'http://localhost:8080/session',     
+      withCredentials : true,//node와 쿠키(세션) 공유                
+  }).then((data)=>{            
+      if(data.data.uid){
+        dispatch(changeUid(data.data.uid))
+      }else if(!data.data.uid){
+        dispatch(changeUid('empty'))
+      }  
+  })      
   },[]);  
   return (
     <div className="App">
       <AlignmentExample></AlignmentExample>
       <Routes>
-        <Route path='/' element={
-          <>
+        <Route path='/' element={<>
           <div className="topMovie">
           <div className="topBox">
           <Carousel fade>          
@@ -127,8 +143,7 @@ function App() {
             })}
           </div>
         </div>
-        </>
-        }/>
+        </>}/>
         <Route path="/movie/:id/Ticketing" element={<Ticketing/>} />         
         <Route path="/members/1" element={<Join/>} /> 
         <Route path="/members/2" element={<Login/>} />   

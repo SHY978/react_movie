@@ -15,15 +15,13 @@ function Mypage(){
     }).then((data)=>{   
         if(!data.data.uid || data.data.uid !== selector.uid){        
             <Logout/>
+            navigate('/members/2')
         }
     })      
     return ( 
         <ListGroup defaultActiveKey="#link1">        
         <ListGroup.Item action onClick={()=>{navigate('/members/3')}} >
           개인정보 수정
-        </ListGroup.Item>
-        <ListGroup.Item action onClick={()=>{navigate('/members/3')}} >
-          예매 내역
         </ListGroup.Item>
         <ListGroup.Item action onClick={()=>{navigate('/board/')}} >
           공지사항

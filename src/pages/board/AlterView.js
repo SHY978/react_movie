@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useLocation } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import { Table, Button } from "react-bootstrap";
@@ -11,22 +12,25 @@ function AlterView() {
   
     const [arr,setArr] = useState([]);
     const [body, setBody] = useState();
-
+    const [title, setTitle] = useState();
     useEffect(()=>{
         setArr(location.state.arr)
     })
     
-    function updateView(props){
-        console.log(props,body)
+    function updateView(id,body,title,beforTitle){
+        console.log(id,body,title,beforTitle)
+      
          axios({
              method: "put",
              url: "http://localhost:8080/board/view/",
              data : {
                  body : body,
-                 _id : props
+                 _id : id,
+                 title : title,
              },
            }).then(() => {
                  console.log('수정 성공');
+                 navigate("/board")
            });
     }
 
@@ -47,7 +51,7 @@ return(
               </tr>
               <tr key={i}>
                 <td key={i + 1}>{arr[i]._id}</td>
-                <td key={i + 2}>{arr[i].title}</td>
+                <td key={i + 2}><input type="text" defaultValue={arr[i].title} onChange={(e)=>{setTitle(e.target.value)}}></input></td>
                 <td key={i + 3}>{arr[i].uid}</td>
                 <td key={i + 4}>{arr[i].date}</td>
                 <td key={i + 5}>{arr[i].view}</td>
@@ -60,7 +64,7 @@ return(
             </tbody>
           </Table>
            <Button
-           variant="primary" onClick={() => {updateView(arr[i]._id)}}> 글 수정
+           variant="primary" onClick={() => {updateView(arr[i]._id,body,title)}}> 글 수정
          </Button>
          </>
         );

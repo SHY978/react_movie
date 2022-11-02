@@ -20,6 +20,16 @@ function View() {
     });
   }, []);
 
+  function deleteView(arr){
+    console.log(arr.arr[0]._id)
+     axios({
+       method : 'delete',
+       url: 'http://localhost:8080/board/view/4',
+       data:{
+         _id : arr.arr[0]._id,
+       },
+     }).then(()=>{navigate("/board",{state: {arr}})})
+  }
   return (
     <div className="boardView">
         <h2>게시판 &gt; 게시글</h2>
@@ -48,13 +58,12 @@ function View() {
               </tr>
             </tbody>
           </Table>
+          
         );
       })}
 
-      <Button
-        variant="primary" onClick={() => {navigate("/board/3",{state: {arr}})}}>
-        글 수정
-      </Button>
+      <Button variant="primary" onClick={() => {navigate("/board/3",{state: {arr}})}}> 글 수정 </Button>
+      <Button variant="primary" onClick={() => {deleteView({arr})}}> 글 삭제 </Button>
     </div>
   );
 }

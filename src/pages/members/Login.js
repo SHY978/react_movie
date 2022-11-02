@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUid } from '../../store.js'
+import Button from "react-bootstrap/Button";
 
 function Login(){
     let [id, setId] = useState('');
@@ -31,11 +32,12 @@ function Login(){
     return(      
         <div className="loginForm">
             <p>아이디</p>
-            <input type="text" placeholder="아이디를 입력 해 주세요" onChange={(e)=>{setId(e.target.value)}}/><br/>
+            <input type="text" placeholder="아이디를 입력 해 주세요" onChange={(e)=>{setId(e.target.value)}}/><br/><br/>
             <p>비밀번호</p>
             <input type="password" placeholder="비밀번호를 입력 해 주세요" onChange={(e)=>{setPasswd(e.target.value)}}/>
             <br/>
-            <button onClick={()=>{postLogin({id,passwd})}}>로그인</button>
+            <br/>
+            <Button onClick={()=>{postLogin({id,passwd})}}>로그인</Button>
                         
         </div>         
     );

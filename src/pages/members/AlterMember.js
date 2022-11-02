@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import {useNavigate} from 'react-router-dom';
+import Button from "react-bootstrap/Button";
 
 function AlterMember() {
   let navigate = useNavigate();
@@ -44,7 +45,8 @@ function AlterMember() {
           <br />
           <input type="password" placeholder="비밀번호" onChange={(e)=>{setPasswd2(e.target.value)}}/>
           <br />
-          <button onClick={()=>{putMember()}}>수정</button>
+          <br/>
+          <Button onClick={()=>{putMember()}}>수정</Button>
         </fieldset>
       </from>
     </div>
